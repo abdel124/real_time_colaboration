@@ -3,8 +3,21 @@ resource "aws_codebuild_project" "my_build" {
   description   = "Build project for the ${var.app_name}"
   service_role  = var.service_role_arn
 
+
   artifacts {
-    type = "CODEPIPELINE"
+    type     = "S3"
+    location = aws_s3_bucket.codebuild_bucket.bucket
+  }
+  cache {
+    type     = "S3"
+    location = aws_s3_bucket.codebuild_bucket.bucket
+  }
+
+  logs_config {
+    cloudwatch_logs {
+      status = "ENABLED"
+      group_name = "/aws/codebuild/MyCodeBuildProject"
+    }
   }
 
   environment {

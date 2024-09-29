@@ -7,10 +7,22 @@ module "ecs" {
   source = "./modules/ecs"
 }
 
-module "lambda" {
-  source = "./lambda"
+module "ecr" {
+  source = "./modules/ecr"
 }
 
-module "pipeline" {
-  source = "./codepipeline"
+module "ecs" {
+  source = "./modules/ecs"
+}
+
+module "build" {
+  source = "./modules/codebuild"
+}
+
+module "deploy" {
+  source = "./modules/codedeploy"
+}
+
+module "artifact" {
+  source = "./modules/codeartifact"
 }

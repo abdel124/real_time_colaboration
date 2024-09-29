@@ -58,38 +58,3 @@ resource "aws_codepipeline" "ci_cd_pipeline" {
     }
   }
 }
-
-resource "aws_iam_role" "codepipeline_role" {
-  name = "${var.app_name}-codepipeline-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Action = "sts:AssumeRole",
-      Effect = "Allow",
-      Principal = {
-        Service = "codepipeline.amazonaws.com"
-      }
-    }]
-  })
-}
-
-resource "aws_iam_role_policy" "codepipeline_policy" {
-  role = aws_iam_role.codepipeline_role.name
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = [
-          "s3:*",
-          "codebuild:*",
-          "codedeploy:*",
-          "ecs:*"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      }
-    ]
-  })
-}

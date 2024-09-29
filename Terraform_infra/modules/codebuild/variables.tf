@@ -30,7 +30,7 @@ variable "environment_variables" {
 variable "aws_region" {
   description = "The AWS region"
   type        = string
-  default     = "us-east-1"
+  default     = "us-west-2"
 }
 
 variable "service_role_arn" {
